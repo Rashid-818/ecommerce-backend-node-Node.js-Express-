@@ -120,9 +120,16 @@ const login = async (req, res) => {
     }
 }
 
-
+const profile = async(req,res) =>{
+    return res.status(200).json(
+        {
+            message: "Work middleware..."
+        }
+    )
+}
 //  Exporting
 export {
     signUp,
-    login
+    login,
+    profile
 }
