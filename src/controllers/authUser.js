@@ -99,7 +99,7 @@ const login = async (req, res) => {
         const token = generateJWT(
             {
                 userId: user._id,
-                email: user.email
+                userRole: user.role
             }
         )
 
