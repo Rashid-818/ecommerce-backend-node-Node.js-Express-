@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { Product } from "../models/product.model.js"
 
 const productCreate = async (req, res) => {
@@ -49,7 +50,7 @@ const getProduct = async(req,res)=>{
 
     } catch (error) {
         console.log(error);
-        return res.status(50).json(
+        return res.status(500).json(
             {
                 message: "Server Error"
             }
@@ -57,8 +58,46 @@ const getProduct = async(req,res)=>{
     }
 }
 
+const getOneProduct = async(req,res)=>{
+    try {
+        const id = req.params.id
+        if(!mongoose.isValidObjectId(id)){
+            return res.status(400).json(
+                {
+                    message: "Invalid Id Format !"
+                }
+            )
+        }
+
+        const product = await Product.findById(id)
+        if(!product){
+            return res.status(404).json(
+                {
+                    message: "Product not available"
+                }
+            )
+        }
+
+        return res.status(200).json(
+            {
+                message: "Product find",
+                product
+            }
+        )
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(
+            {
+                message: 'Server Error'
+            }
+        )
+        
+    }
+}
 
 export {
     productCreate,
-    getProduct
+    getProduct,
+    getOneProduct
 }
