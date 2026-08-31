@@ -11,7 +11,7 @@ const productCreate = async (req, res) => {
             )
         }
 
-        const productListed = new Product(
+        const product = new Product(
             {
                 title,price,brand,category,description,specs
             }
@@ -22,7 +22,7 @@ const productCreate = async (req, res) => {
         return res.status(201).json(
             {
                 message: "Product List Successful",
-                productListed
+                product
             }
         )
 
