@@ -5,8 +5,8 @@ import { getOneProduct, getProduct, productCreate } from "../controllers/product
 
 const router = Router()
 
-router.post("/list-product",requireAuth,requireAdmin,productCreate)
+router.post("/products",requireAuth,requireAdmin,productCreate)
 router.get("/products",getProduct)
-router.get("/product/:id",getOneProduct)
+router.get("/products/:id",getOneProduct)
 
 export default router
