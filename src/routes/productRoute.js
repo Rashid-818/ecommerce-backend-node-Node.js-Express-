@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { requireAuth } from "../middlewares/authRequired.js";
 import { requireAdmin } from "../middlewares/adminRequired.js";
-import { deleteProduct, getOneProduct, getProduct, productCreate } from "../controllers/product.js";
+import { deleteProduct, getOneProduct, getProduct, productCreate, updateProduct } from "../controllers/product.js";
 
 const router = Router()
 
@@ -12,5 +12,6 @@ router.get("/products/:id",getOneProduct)
 // Admin Routes
 router.post("/products",requireAuth,requireAdmin,productCreate)
 router.delete("/products/:id",requireAuth,requireAdmin,deleteProduct)
+router.patch("/products/:id",requireAuth,requireAdmin,updateProduct)
 
 export default router

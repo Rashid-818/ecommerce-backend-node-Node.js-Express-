@@ -132,9 +132,66 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const updateProduct = async (req, res) => {
+    try {
+
+        const id = req.params.id
+        const { title, brand, description, price, category, specs } = req.body
+
+        const updatedData = {}
+
+        if(title !== undefined) updatedData.title = title
+        if(brand !== undefined) updatedData.brand = brand
+        if(description !== undefined) updatedData.description = description
+        if(price !== undefined) updatedData.price = price
+        if(category !== undefined) updatedData.category = category
+        if(specs !== undefined) updatedData.specs = specs
+
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json(
+                {
+                    message: "Invalid Id format..."
+                }
+            )
+        }
+
+        const product = await Product.findByIdAndUpdate(
+            id,
+            updatedData,
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        )
+        if (!product) {
+            return res.status(404).json(
+                {
+                    message: "Product Not Found"
+                }
+            )
+        }
+
+        return res.status(200).json(
+            {
+                message: "Updated...."
+            }
+        )
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(
+            {
+                message: "Server Error"
+            }
+        )
+
+    }
+}
+
 export {
     productCreate,
     getProduct,
     getOneProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }
