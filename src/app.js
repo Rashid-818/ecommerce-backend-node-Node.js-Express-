@@ -10,9 +10,15 @@ app.use(express.json())
 // Importing Routes
 
 // Auth Routes
-import AuthRouter from "./routes/authRoute.js"
+import authRouter from "./routes/authRoute.js"
 
-app.use("/ecommerce/api/v1/auth",AuthRouter)
+app.use("/ecommerce/api/v1/auth",authRouter)
+
+
+// Product Routes
+import productRouter from "./routes/productRoute.js"
+
+app.use("/ecommerce/api/v1",productRouter)
 
 
 export default app
