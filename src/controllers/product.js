@@ -17,7 +17,7 @@ const productCreate = async (req, res) => {
             }
         )
 
-        await productListed.save()
+        await product.save()
 
         return res.status(201).json(
             {
@@ -27,6 +27,8 @@ const productCreate = async (req, res) => {
         )
 
     } catch (error) {
+        console.log(error);
+        
         return res.status(500).json(
             {
                 message: "Server Error.."
@@ -35,6 +37,28 @@ const productCreate = async (req, res) => {
     }
 }
 
+const getProduct = async(req,res)=>{
+    try {
+       const product =  await Product.find()
+       return res.status(200).json(
+        {
+            message: "Here is All Products",
+            product
+        }
+       )
+
+    } catch (error) {
+        console.log(error);
+        return res.status(50).json(
+            {
+                message: "Server Error"
+            }
+        )
+    }
+}
+
+
 export {
-    productCreate
+    productCreate,
+    getProduct
 }
