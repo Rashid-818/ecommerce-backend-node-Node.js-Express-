@@ -20,5 +20,10 @@ import productRouter from "./routes/productRoute.js"
 
 app.use("/ecommerce/api/v1",productRouter)
 
+// Cart Routes
+import cartRouter from "./routes/cartRoute.js"
+
+app.use("/ecommerce/api/v1",cartRouter)
+
 
 export default app
