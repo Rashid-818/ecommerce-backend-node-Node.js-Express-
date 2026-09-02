@@ -79,6 +79,39 @@ const addToCart = async (req, res) => {
     }
 }
 
+const getMyCart = async (req, res) => {
+    try {
+        const userId = req.user.userId
+        if(!mongoose.isValidObjectId(userId)){
+            return res.status(401).json({message: "Invalid Id Format"})
+        }
+        const cart = await Cart.findOne({user: userId}).populate("items.product")
+        if(!cart){
+            return res.status(404).json(
+                {
+                    message: "Cart not found"
+                }
+            )
+        }
+
+        return res.status(200).json(
+            {
+                message: "here is yours Cart",
+                cart
+            }
+        )
+
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(
+            {
+                message: "Server Error"
+            }
+        )
+    }
+}
 export {
-    addToCart
+    addToCart,
+    getMyCart
 }
